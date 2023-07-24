@@ -26,7 +26,7 @@ func Init() {
 				}
 			}
 			// time.Sleep(time.Second)
-			time.Sleep(time.Second)
+			time.Sleep(10 * time.Second)
 		}
 	}()
 	// init serviceIdlMap

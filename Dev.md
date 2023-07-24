@@ -3,7 +3,7 @@
 | 更新人 | 更新时间  | 更新内容                                              |
 | ------ | --------- | ----------------------------------------------------- |
 | 张淞钦 | 2023.7.20 | 添加项目情景、go module部分的命名统一、数据库字段初设 |
-|        |           |                                                       |
+| 张淞钦 | 2023.7.21 | 项目基本功能完成                                      |
 |        |           |                                                       |
 |        |           |                                                       |
 |        |           |                                                       |
@@ -48,3 +48,19 @@ hertzSvr部分：github.com/njuer/course/cloudwego/httpsvr
 rpcSvr的student部分：github.com/njuer/course/cloudwego/rpcstusvr
 
 rpcSvr的teacher部分：github.com/njuer/course/cloudwego/rpcteasvr
+
+### 端口
+
+etcd 2379
+
+hertzsvr 
+
+rpcstudent 9998
+
+rpcteacher 9999
+
+## 项目测试
+
+请使用Day3中给出的文档中的测试用例，按照代码设计去更改测试用例去测试。
+
+项目运行请参见Day4完成的项目的运行方法。

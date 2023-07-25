@@ -161,4 +161,11 @@ ab压测
 3. 使用goroutine，减少内存消耗
 
 # 优化后性能数据  
+markbench测试
 ![](https://box.nju.edu.cn/f/35340b81c8d54d57b695/?dl=1)
+
+ab压测  
+并发线程数10  
+  ![](https://img1.imgtp.com/2023/07/25/Qdjs9dSh.png)
+并发线程数100  
+![](https://img1.imgtp.com/2023/07/25/fttZb4dN.png)

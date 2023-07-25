@@ -53,7 +53,7 @@ rpcSvr的teacher部分：github.com/njuer/course/cloudwego/rpcteasvr
 
 etcd 2379
 
-hertzsvr 
+hertzsvr 8888
 
 rpcstudent 9998
 
@@ -61,6 +61,11 @@ rpcteacher 9999
 
 ## 项目测试
 
-请使用Day3中给出的文档中的测试用例，按照代码设计去更改测试用例去测试。
+位于每个rpc服务的./test/main.test下
 
-项目运行请参见Day4完成的项目的运行方法。
+## HTTP接口请求
+curl -H "Content-Type: application/json" -X POST http://127.0.0.1:8888/post/student/ad
+d-student-info -d '{"id": 100, "name":"Emma", "college": {"name": "software college", "address": "逸夫"}}'
+
+curl -H "Content-Type: application/json" -X GET http://127.0.0.1:8888/get/student/quer
+y-student-info?id=100

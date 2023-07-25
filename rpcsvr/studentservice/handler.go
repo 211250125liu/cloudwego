@@ -5,7 +5,7 @@ import (
 	"errors"
 	"time"
 
-	student "github.com/njuer/course/cloudwego/rpcstusvr/kitex_gen/student"
+	"github.com/njuer/course/cloudwego/rpcstusvr/kitex_gen/student"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )

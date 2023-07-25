@@ -10,6 +10,7 @@ struct Teacher {
     1: required i32 id(api.body='id'),
     2: required string name(api.body='name'),
     3: required College college(api.body='college'),
+    //4: required string gender(api.body='gender'),
 }
 
 struct RegisterResp {

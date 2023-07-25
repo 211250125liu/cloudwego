@@ -1,6 +1,7 @@
 package idlProvider
 
 import (
+	"fmt"
 	"os"
 	"time"
 
@@ -23,6 +24,8 @@ func Init() {
 				err := idlContentMap[k].UpdateIDL(getIdlFileContent(k), map[string]string{})
 				if err != nil {
 					panic("Error: fail to update idl " + err.Error())
+				} else {
+					fmt.Println("update ok")
 				}
 			}
 			// time.Sleep(time.Second)

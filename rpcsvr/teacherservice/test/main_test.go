@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/cloudwego/hertz/pkg/common/json"
-	"github.com/njuer/course/cloudwego/rpcstusvr/kitex_gen/student"
+	"github.com/njuer/course/cloudwego/rpcteasvr/kitex_gen/teacher"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -13,15 +13,15 @@ import (
 )
 
 const (
-	queryURLFmt = "http://127.0.0.1:8888/get/student/query-student-info?id="
-	registerURL = "http://127.0.0.1:8888/post/student/add-student-info"
+	queryURLFmt = "http://127.0.0.1:8888/get/teacher/query-teacher-info?id="
+	registerURL = "http://127.0.0.1:8888/post/teacher/add-teacher-info"
 )
 
 var httpCli = &http.Client{Timeout: 3 * time.Second}
 
 func TestStudentService(t *testing.T) {
 	for i := 1; i <= 100; i++ {
-		newStu := genStudent(i)
+		newStu := genTeacher(i)
 		resp, err := register(newStu)
 		Assert(t, err == nil, err)
 		Assert(t, resp.Success)
@@ -36,7 +36,7 @@ func TestStudentService(t *testing.T) {
 
 func BenchmarkStudentService(b *testing.B) {
 	for i := 1; i < b.N; i++ {
-		newStu := genStudent(i)
+		newStu := genTeacher(i)
 		resp, err := register(newStu)
 		Assert(b, err == nil, err)
 		Assert(b, resp.Success, resp.Message)
@@ -49,7 +49,7 @@ func BenchmarkStudentService(b *testing.B) {
 	}
 }
 
-func register(stu *student.Student) (rResp *student.RegisterResp, err error) {
+func register(stu *teacher.Teacher) (rResp *teacher.RegisterResp, err error) {
 	reqBody, err := json.Marshal(stu)
 	if err != nil {
 		return nil, fmt.Errorf("marshal request failed: err=%v", err)
@@ -77,7 +77,7 @@ func register(stu *student.Student) (rResp *student.RegisterResp, err error) {
 	return
 }
 
-func query(id int) (student student.Student, err error) {
+func query(id int) (teacher teacher.Teacher, err error) {
 	var resp *http.Response
 	resp, err = httpCli.Get(fmt.Sprint(queryURLFmt, id))
 	defer func(Body io.ReadCloser) {
@@ -94,17 +94,17 @@ func query(id int) (student student.Student, err error) {
 		return
 	}
 
-	if err = json.Unmarshal(body, &student); err != nil {
+	if err = json.Unmarshal(body, &teacher); err != nil {
 		return
 	}
 	return
 }
 
-func genStudent(id int) *student.Student {
-	return &student.Student{
+func genTeacher(id int) *teacher.Teacher {
+	return &teacher.Teacher{
 		Id:   int32(id),
-		Name: fmt.Sprintf("student-%d", id),
-		College: &student.College{
+		Name: fmt.Sprintf("teacher-%d", id),
+		College: &teacher.College{
 			Name:    "",
 			Address: "",
 		},

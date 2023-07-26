@@ -199,6 +199,11 @@ curl -H "Content-Type: application/json" -X POST http://127.0.0.1:8888/post/teac
 ```go
 curl -H "Content-Type: application/json" -X GET http://127.0.0.1:8888/get/teacher/query-teacher-info?id=24
 ```
+##### 响应格式
+```go
+"message":"success",
+"success":true
+```
 
 ### 部分代码说明
 1. ![](https://box.nju.edu.cn/f/2568d828076e4731b779/?dl=1)  
@@ -211,7 +216,7 @@ http启动时，初始化kitex client provide，进行服务发现，初始化id
   
 
 # 测试方案说明  
-1. 在每个rpc服务下设置test，由http端访问rpc服务得到的数据与实际应得数据进行对比  
+1. 在每个rpc服务下设置test/main_test，由http端访问rpc服务得到的数据与实际应得数据进行对比  
 2. 同时进行benchmark测试，测试程序的性能  
 3. 使用Apache Benchmark进行压测，测试http服务器端的性能  
   

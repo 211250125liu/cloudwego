@@ -206,10 +206,11 @@ curl -H "Content-Type: application/json" -X GET http://127.0.0.1:8888/get/teache
 ```
 
 ### 部分代码说明
-1. ![](https://box.nju.edu.cn/f/2568d828076e4731b779/?dl=1)  
-http启动时，初始化kitex client provide，进行服务发现，初始化idlProvider，读取idl文件内容，并每隔一段时间进行一次idl更新  
+1. http启动时，初始化kitex client provide，进行服务发现，初始化idlProvider，读取idl文件内容，并每隔一段时间进行一次idl更新
+ ![](https://box.nju.edu.cn/f/2568d828076e4731b779/?dl=1) 
   
 2. 在go文件httpsvr/biz/handler/Get.go和httpsvr/biz/handler/Post.go处，调用路由层的GetServiceName方法获得服务名称后，调用kitexClientProvider的GetClient方法获得客户端，后进行泛化调用  
+
 ![](https://box.nju.edu.cn/f/1238413d71814d23a79f/?dl=1)  
   
 3. idl热更新实现于teacherservice，可以增加一个string类型的gender字段，rpc端由teacherservicegender提供  
@@ -221,7 +222,8 @@ http启动时，初始化kitex client provide，进行服务发现，初始化id
 3. 使用Apache Benchmark进行压测，测试http服务器端的性能  
   
 # 性能测试数据  
-markbench测试  
+markbench测试 
+
 ![](https://box.nju.edu.cn/f/32cd4926c2d341868ee8/?dl=1)  
   
 ab压测  

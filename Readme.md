@@ -1,7 +1,6 @@
 
 # cloudwego 使用说明文档  
 ### 目录结构  
-├── Dev.md  
 ├── Readme.md # 文档所在位置  
 ├── httpsvr # http端  
 │ ├── biz  
@@ -111,24 +110,54 @@
 2. 创建http_server  
 mkdir httpsvr  
 cd httpsvr  
-3. 生成hertz_server脚手架  
-hz new -mod github.com /<your_name>/httpsvr -idl ../idl/student.thrift  
-4. 生成 kitex client 代码（注意 -module 的值和上面 -mod 的值应当一样）  
-kitex -module github.com/<your_name>/httpsvr ../idl/student.thrift  
-5. 创建rpc_server  
+3. 生成hertz_server基本框架  
+#### 非 GOPATH 下执行，需要指定 go mod 
+hz new -mod hertz/demo
+#### 整理 & 拉取依赖
+go mod tidy 
+4. 创建rpc_server  
 mkdir rpcsvr  
 cd rpcsvr  
-6. 生成 kitex server 脚手架  
+5. 生成两个服务的脚手架，并编写业务处理  
 kitex -module github.com/<your_name>/r  
 pcsvr -service student-server ../student.thrift  
 修改 main.go 监听与 hertz 不同的端口，  
 例如 8889：  
 addr, _ := net.ResolveTCPAddr("tcp", "127.0.0.1:8889")  
 svr:=demo.NewServer(new(StudentServiceImpl), server.WithServiceAddr(addr))  
-7. 运行etcd后即可运行http端，rpc端  
+6. 运行etcd后即可运行http端，rpc端  
   
 ### 代码接口说明  
-  
+#### student
+##### add-student-info
+```Go
+curl -H "Content-Type: application/json" -X POST http://127.0.0.1:8888/post/student/add-student-info -d '{"id": 100, "name":"Emma", "college": {"name": "software college", "address": "逸夫"}}'
+```
+##### query
+/query-student-info
+```Go
+curl -H "Content-Type: application/json" -X GET http://127.0.0.1:8888/get/student/query-student-info?id=100
+```
+#### teacher
+##### add-teacher-info
+```go
+curl -H "Content-Type: application/json" -X POST http://127.0.0.1:8888/post/teacher/add-teacher-info -d '{"id": 23, "name":"Lisa", "college": {"name": "software college", "address": "逸夫"}}'
+```
+##### query
+```go
+curl -H "Content-Type: application/json" -X GET http://127.0.0.1:8888/get/teacher/query-teacher-info?id=23
+```
+#### teachergender
+##### add-teacher-info
+```go
+curl -H "Content-Type: application/json" -X POST http://127.0.0.1:8888/post/teacher/add-teacher-info -d '{"id": 24, "name":"Lisa", "college": {"name": "software college", "address": "逸夫"}, "gender":"female"}'
+```
+##### query
+```go
+curl -H "Content-Type: application/json" -X GET http://127.0.0.1:8888/get/teacher/query-teacher-info?id=24
+```
+
+### 部分代码说明
 1. ![](https://box.nju.edu.cn/f/2568d828076e4731b779/?dl=1)  
 http启动时，初始化kitex client provide，进行服务发现，初始化idlProvider，读取idl文件内容，并每隔一段时间进行一次idl更新  
   
@@ -137,8 +166,7 @@ http启动时，初始化kitex client provide，进行服务发现，初始化id
   
 3. idl热更新实现于teacherservice，可以增加一个string类型的gender字段，rpc端由teacherservicegender提供  
   
-  
-  
+
 # 测试方案说明  
 1. 在每个rpc服务下设置test，由http端访问rpc服务得到的数据与实际应得数据进行对比  
 2. 同时进行benchmark测试，测试程序的性能  

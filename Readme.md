@@ -106,6 +106,48 @@
 └── bootstrap.sh  
   
 ### 部署说明  
+
+#### 环境
+hz安装
+```go
+go install github.com/cloudwego/hertz/cmd/hz@latest
+```
+kitex安装
+```go
+go install github.com/cloudwego/kitex/tool/cmd/kitex@latest
+```
+thriftgo安装
+```go
+go install github.com/cloudwego/thriftgo@latest
+```
+etcd安装，下载后解压即可
+```go
+https://github.com/etcd-io/etcd/releases
+```
+
+#### 运行
+在httpsvr文件夹下、rpcsvr文件夹下的student和teacher的文件夹下运行
+```go
+sh build.sh
+```
+再运行
+```go
+sh output/bootstrap.sh
+```
+##### 热更新示例：teacher添加gender字段
+要求gender字段为string并设为required，热更新后，保证httpsvr的持续运行、student的持续运行，本来应该修改的业务逻辑的teacher这一部分的rpcsvr直接用已经修改好的teachergender，停用当前teacher的文件夹下运行的程序，改到teachergender下运行
+```go
+sh build.sh
+```
+再运行
+```go
+sh output/bootstrap.sh
+```
+（相当于修改业务逻辑代码，除此以外teacher和teachergender没有任何区别）
+
+
+
+#### 具体步骤
 1. 创建目录idl，编写idl文件  
 2. 创建http_server  
 mkdir httpsvr  
